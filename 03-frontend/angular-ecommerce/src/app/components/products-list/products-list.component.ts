@@ -20,6 +20,9 @@ export class ProductsListComponent implements OnInit {
   thePageSize: number = 5;
   theTotalElements: number = 0;
 
+  // property for pagination
+  previousKeyword: string = ""; 
+
   constructor(private productService: ProductService, 
               private route: ActivatedRoute ) { }
 
@@ -72,32 +75,41 @@ export class ProductsListComponent implements OnInit {
     this.productService.getProductListPaginate(this.thePageNumber - 1,
                                               this.thePageSize,
                                               this.currentCategoryId )
-                                              .subscribe(
-                                                data => {
-                                                  this.products = data._embedded.products;
-                                                  this.thePageNumber = data.page.number + 1;
-                                                  this.thePageSize = data.page.size;
-                                                  this.theTotalElements = data.page.totalElements;
-                                                }
-                                              );
+                                              .subscribe( this.processResult());
   }
 
   handleSearchProducts() {
     
-    const theKeyword: string = this.route.snapshot.paramMap.get('keyword') || "";
+    const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+
+    // if we hae diff keyword from preious, then set pageNumber to 1
+    if(this.previousKeyword != theKeyword){
+      this.thePageNumber = 1;
+    }
+
+    this.previousKeyword = theKeyword;
+    console.log(`keyword=${theKeyword}, page number=  ${this.thePageNumber}`);
 
     // search for products using keyword
-    this.productService.searchProducts(theKeyword).subscribe(
-      data => {
-        this.products = data;
-      }
-    )
+    this.productService.searchProductsPaginate(this.thePageNumber - 1,
+                                               this.thePageSize,
+                                               theKeyword ).subscribe(this.processResult());
   }
 
   updatePageSize(pageSize: string) {
     this.thePageSize = +pageSize;
     this.thePageNumber = 1;
     this.listProducts();
+  }
+
+  processResult() {
+    return (data: any) => {
+      this.products = data._embedded.products;
+      this.thePageNumber = data.page.number + 1;
+      this.thePageSize = data.page.size;
+      this.theTotalElements = data.page.totalElements;
+    };
+  
   }
   
 }
