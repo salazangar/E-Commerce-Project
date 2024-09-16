@@ -109,7 +109,11 @@ export class ProductsListComponent implements OnInit {
       this.thePageSize = data.page.size;
       this.theTotalElements = data.page.totalElements;
     };
-  
+  }
+
+  addToCart(product: Product) {
+
+    console.log(`${product.name} costs ${product.unitPrice}`);
   }
   
 }
