@@ -75,7 +75,7 @@ export class CartService {
       console.log(`name: ${ temp.name }, quantity: ${ temp.quantity }, unitPrice: ${ temp.unitPrice }, subTotalPrice: ${ subTotalPrice}`);
     }
 
-    console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue.toFixed(2)}`);
+    console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue.toFixed(0)}`);
     console.log('--------')
   }
 
