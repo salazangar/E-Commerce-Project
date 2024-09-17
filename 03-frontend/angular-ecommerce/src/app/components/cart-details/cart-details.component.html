@@ -25,9 +25,9 @@
                                 <label>Quantity: </label> 
 
                                 <div class="row no-gutters">
-                                    
+
                                     <div class="col">
-                                        <button class="btn btn-primary btn-sm">
+                                        <button (click)="decrementQuantity(tempItem)" class="btn btn-primary btn-sm">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -46,7 +46,16 @@
                                 </div>
                             </div>
 
-                            <p class="mt-2">Subtotal: {{ tempItem.quantity * tempItem.unitPrice | currency:'INR' }}</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="mt-2">Subtotal: {{ tempItem.quantity * tempItem.unitPrice | currency:'INR' }}</p>
+                                    </div>
+                                    <div class="col-1"></div>
+                                    <div class="col">
+                                        <button (click)="remove(tempItem)" class="btn btn-small btn-outline-danger">Remove</button>
+                                    </div>
+                                </div>
+                                
                         </td>
                     </tr>
 
