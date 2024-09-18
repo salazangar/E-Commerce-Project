@@ -63,7 +63,10 @@
                         <td colspan="2"></td>
                         <td style="font-weight: bold;">
                             <p>Total Quantity: {{ totalQuantity }} </p>
-                            <p>Total Price: {{ totalPrice.toFixed(2) }}</p>
+                            <p>Total Price: {{ totalPrice.toFixed(2) | currency:'INR' }}</p>
+                            <a routerLink="/checkout">
+                                <button class="btn btn-dark">Checkout</button>
+                            </a> 
                         </td>
                     </tr>
 
