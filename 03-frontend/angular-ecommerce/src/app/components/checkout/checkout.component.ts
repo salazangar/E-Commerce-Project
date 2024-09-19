@@ -126,7 +126,7 @@ export class CheckoutComponent implements OnInit {
 
     this.formService.getStates(countryCode).subscribe(
       data=> {
-        // console.log(`The states are : ` + JSON.stringify(data));
+        console.log(`The states are : ` + JSON.stringify(data));
         this.states = data;
     
         // set first item as default
