@@ -79,10 +79,16 @@ export class CheckoutComponent implements OnInit {
   }
 
   get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
-
   get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }
-
   get email() { return this.checkoutFormGroup.get('customer.email'); }
+
+  get street() { return this.checkoutFormGroup.get('shippingAddress.street'); }
+  get city() { return this.checkoutFormGroup.get('shippingAddress.city'); }
+  get state() { return this.checkoutFormGroup.get('shippingAddress.state'); }
+  get country() { return this.checkoutFormGroup.get('shippingAddress.country'); }
+  get zipcode() { return this.checkoutFormGroup.get('shippingAddress.zipcode'); }
+
+
 
   onSubmit() {
     console.log('Handling the form submission');
