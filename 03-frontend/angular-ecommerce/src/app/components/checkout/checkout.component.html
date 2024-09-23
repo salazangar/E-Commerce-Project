@@ -79,6 +79,14 @@
                                         {{ country.name }}
                                     </option>
                                 </select>
+
+                                <div *ngIf="country?.invalid && (country?.dirty || country?.touched)" class="alert alert-danger">
+
+                                    <div *ngIf="country?.errors?.required">
+                                        Country is required
+                                    </div>
+                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,6 +95,18 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="street" type="text">
+
+                                <div *ngIf="street?.invalid && (street?.dirty || street?.touched)" class="alert alert-danger">
+
+                                    <div *ngIf="street?.errors?.required">
+                                        Street is required
+                                    </div>
+
+                                    <div *ngIf="street?.errors?.minlength">
+                                        At least 2 characters required
+                                    </div>
+                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -95,6 +115,18 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="city" type="text">
+
+                                <div *ngIf="city?.invalid && (city?.dirty || city?.touched)" class="alert alert-danger">
+
+                                    <div *ngIf="city?.errors?.required">
+                                        City is required
+                                    </div>
+
+                                    <div *ngIf="city?.errors?.minlength">
+                                        At least 2 characters required
+                                    </div>
+                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -107,6 +139,14 @@
                                         {{ state.name }}
                                     </option>
                                 </select>
+
+                                <div *ngIf="state?.invalid && (state?.dirty || state?.touched)" class="alert alert-danger">
+
+                                    <div *ngIf="state?.errors?.required">
+                                        State is required
+                                    </div>
+                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -115,6 +155,18 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="zipcode" type="text">
+
+                                <div *ngIf="zipcode?.invalid && (zipcode?.dirty || zipcode?.touched)" class="alert alert-danger">
+
+                                    <div *ngIf="zipcode?.errors?.required">
+                                        Zipcode is required
+                                    </div>
+                                    
+                                    <div *ngIf="zipcode?.errors?.minlength">
+                                        At least 2 characters required
+                                    </div>
+                                
+                                </div>
                             </div>
                         </div>
                     </div>
