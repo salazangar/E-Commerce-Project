@@ -88,6 +88,10 @@ export class CheckoutComponent implements OnInit {
   get country() { return this.checkoutFormGroup.get('shippingAddress.country'); }
   get zipcode() { return this.checkoutFormGroup.get('shippingAddress.zipcode'); }
 
+  get cardType() { return this.checkoutFormGroup.get('creditCard.cardType'); }
+  get nameOnCard() { return this.checkoutFormGroup.get('creditCard.nameOnCard'); }
+  get cardNumber() { return this.checkoutFormGroup.get('creditCard.cardNumber'); }
+  get securityCode() { return this.checkoutFormGroup.get('creditCard.securityCode'); }
 
 
   onSubmit() {
