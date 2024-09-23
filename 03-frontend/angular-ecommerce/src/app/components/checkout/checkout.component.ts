@@ -31,7 +31,7 @@ export class CheckoutComponent implements OnInit {
       customer: this.formBuilder.group({
         firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
         lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        email: new FormControl('',Validators.email)
+        email: new FormControl('',[Validators.required, Validators.email])
       }),
       shippingAddress: this.formBuilder.group({
         street: [''],
@@ -91,9 +91,13 @@ export class CheckoutComponent implements OnInit {
 
   get email() { return this.checkoutFormGroup.get('customer.email'); }
 
-
   onSubmit() {
     console.log('Handling the form submission');
+
+    if( this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched();
+    }
+
     console.log(this.checkoutFormGroup.get('customer')?.value);
     console.log('Country is : ' + this.checkoutFormGroup.get('shippingAddress')!.value.country.name);
     console.log('State is : ' + this.checkoutFormGroup.get('shippingAddress')!.value.state.name) ;
