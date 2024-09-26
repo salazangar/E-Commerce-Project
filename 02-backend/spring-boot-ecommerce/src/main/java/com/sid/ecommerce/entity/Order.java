@@ -38,7 +38,7 @@ public class Order {
     @CreationTimestamp
     private Date dateCreated;
 
-    @Column(name = "date_updated")
+    @Column(name = "last_updated")
     @UpdateTimestamp
     private Date dateUpdated;
 
@@ -46,7 +46,7 @@ public class Order {
     private Set<OrderItem> orderItems = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "customer")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToOne(cascade = CascadeType.ALL)

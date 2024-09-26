@@ -52,6 +52,7 @@ public class CheckoutServiceImpl implements CheckoutService{
         return new PurchaseResponse(orderTrackingNumber);
     }
 
+
     private String generateOrderTrackingNumber() {
 
         // generate random UUID
