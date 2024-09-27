@@ -8,6 +8,6 @@ export class Purchase {
     customer! : Customer;
     address! : Address;
     order! : Order;
-    orderItems!: OrderItem;
+    orderItems!: OrderItem[];
 
 }

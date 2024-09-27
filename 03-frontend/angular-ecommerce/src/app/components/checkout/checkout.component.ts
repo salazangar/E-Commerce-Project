@@ -6,6 +6,9 @@ import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
 import { FormService } from 'src/app/services/form.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
+import { Order } from 'src/app/common/order';
+import { OrderItem } from 'src/app/common/order-item';
+import { Purchase } from 'src/app/common/purchase';
 
 @Component({
   selector: 'app-checkout',
@@ -124,6 +127,65 @@ export class CheckoutComponent implements OnInit {
       return; // so that nothing else is executed
     }
 
+    // set up order
+    let order = new Order();
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantity;
+
+    // get cart items
+    const cartItems = this.cartService.cartItems;
+
+    // create orderItems from cartItems
+    let orderItems: OrderItem[] = cartItems.map( temp => new OrderItem(temp)); 
+
+    // set up purchase
+    let purchase = new Purchase();
+
+    // pppopulate purchase - customer
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+
+
+    // populate purchase - address
+    purchase.address = this.checkoutFormGroup.controls['shippingAddress'].value;
+    const shippingState: State = JSON.parse(JSON.stringify(purchase.address.state));
+    const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.address.country));
+    purchase.address.state = shippingState.name;
+    purchase.address.country = shippingCountry.name;
+
+    // populate purchase - order and order items
+    purchase.order = order;
+    purchase.orderItems = orderItems; 
+
+    // create call to REST API  via service
+    this.checkoutService.placeOrder(purchase).subscribe({
+        // success path
+        next: response => {
+          alert(`Your order has been recieved.\nOrder tracking number: ${response.orderTrackingNumber}`)
+
+          // reset cart
+          this.resetCart();
+
+        },
+        // error path
+        error: err => {
+          alert(`There was an error: ${err.message}`);
+        } 
+      }
+    );
+
+  }
+  resetCart() {
+
+    // reset cart data
+    this.cartService.cartItems = [];
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQuantity.next(0);
+
+    // reset form data
+    this.checkoutFormGroup.reset();
+
+    // navigate to main products page
+    this.router.navigateByUrl("/products");
   }
 
   handleMonthsAndYears() {
