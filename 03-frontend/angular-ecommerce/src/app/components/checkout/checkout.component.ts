@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
 import { FormService } from 'src/app/services/form.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -25,7 +27,9 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               public formService: FormService,
-              public cartService: CartService ) { }
+              public cartService: CartService,
+              public checkoutService: CheckoutService,
+              public router: Router ) { }
 
   ngOnInit(): void {
 
@@ -117,11 +121,8 @@ export class CheckoutComponent implements OnInit {
 
     if( this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
+      return; // so that nothing else is executed
     }
-
-    console.log(this.checkoutFormGroup.get('customer')?.value);
-    console.log('Country is : ' + this.checkoutFormGroup.get('shippingAddress')!.value.country.name);
-    console.log('State is : ' + this.checkoutFormGroup.get('shippingAddress')!.value.state.name) ;
 
   }
 
