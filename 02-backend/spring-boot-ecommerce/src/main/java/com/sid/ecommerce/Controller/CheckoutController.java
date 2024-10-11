@@ -22,6 +22,7 @@ public class CheckoutController {
     public PurchaseResponse placeOrder(@RequestBody Purchase purchase){
 
         PurchaseResponse purchaseResponse = checkoutService.placeOrder(purchase);
+        System.out.println(purchase);
 
         return purchaseResponse;
     }
